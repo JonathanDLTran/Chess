@@ -1,7 +1,54 @@
-import Constants
+from Constants import *
+
+import Piece
+import Pawn 
+import Knight 
+import Rook 
+import Bishop
+import King 
+import Queen
+
+import operator
+import copy
 
 class Chess:
     
+    def whereCanRookMove(self, pos, piecesList):
+        """
+        pos is a tuple with first element as row, second element as column
+        """
+        xPos = pos[1]
+        yPos = pos[0]
+        xList1 = []; xList2 = []; yList1 = []; yList2 = []
+        res1 = self.moveRookHelper('<', xPos, xPos + 1, yPos, None, piecesList, xList1)
+        res2 = self.moveRookHelper('>', xPos, xPos - 1, yPos, None, piecesList, xList2)
+        res3 = self.moveRookHelper('<', xPos, None, yPos, yPos + 1, piecesList, yList1)
+        res4 = self.moveRookHelper('>', xPos, None, yPos, yPos - 1, piecesList, yList2)
+        return res1 + res2 + res3 + res4
+                
+        
+    def moveRookHelper(self, comparisonOp, xPos, xCounter, yPos, yCounter, piecesList, posCanMoveList):
+        compOps = { '>' : operator.gt,
+                    '<' : operator.lt}
+        toContinue = True
+        if comparisonOp == '<':
+            bound = ROWS - 1
+        else:
+            bound = 0
+        while( compOps[comparisonOp](counter, bound) and toContinue):
+            if xCounter == None:
+                newX = xPos; newY = yCounter
+            else:
+                newX = xCounter; newY = yPos
+            if piecesList[newX][newY] == None:
+                posCanMoveList.append( (newX, newY) )
+            else:
+                toContinue = False
+            if comparisonOp == '<':
+                counter += 1
+            else:
+                counter -= 1
+        return posCanMoveList
     
     def parser(self):
         toContinue = True
@@ -77,58 +124,68 @@ def legalCoordinate(coordinate):
     if (row < 1) or (row > 8) or (column < 1) or (column > 8):
         print('4')
         return False
-    if row == column:
-        return False
+    #if row == column:
+    #   return False
     return (row - 1, column - 1)
 
 
 def initializeData():
     gameList = []
     for i in range(ROWS):
-        gameList.append(NONE_LIST)
+        gameList.append(copy.deepcopy(NONE_LIST))
+    print(gameList[0])
+
     initializeBishops(gameList)
+    print(gameList[0])
+    print(gameList)
     initializeKings(gameList)
+    print(gameList)
     initializeQueens(gameList)
+    print(gameList)
     initializeKnights(gameList)
+    print(gameList)
     initializeRooks(gameList)
+    print(gameList)
     initializePawns(gameList)
-    self.piecesData = gameList
-    
+    #self.piecesData = gameList
+    print(gameList)
+    print(gameList[0][1])
+    print(gameList[7][1])
     
 def initializePawns(gameList):
     for i in [1, 6]:
         for j in range(8):
             if i == 1:
-                gameList[i][j] = Pawn(BLACK)
+                gameList[i][j] = Pawn.Pawn(BLACK)
             else:
-                gameList[i][j] = Pawn(WHITE)
+                gameList[i][j] = Pawn.Pawn(WHITE)
 
 
 def initializeRooks(gameList):
-    gameList[0][0] = Rook(BLACK)
-    gameList[0][7] = Rook(BLACK)
-    gameList[7][0] = Rook(WHITE)
-    gameList[7][7] = Rook(WHITE)
+    gameList[0][0] = Rook.Rook(BLACK)
+    gameList[0][7] = Rook.Rook(BLACK)
+    gameList[7][0] = Rook.Rook(WHITE)
+    gameList[7][7] = Rook.Rook(WHITE)
 
 def initializeBishops(gameList):
-    gameList[0][2] = Bishop(BLACK)
-    gameList[0][5] = Bishop(BLACK)
-    gameList[7][2] = Bishop(WHITE)
-    gameList[7][5] = Bishop(WHITE)
+    gameList[0][2] = Bishop.Bishop(BLACK)
+    gameList[0][5] = Bishop.Bishop(BLACK)
+    gameList[7][2] = Bishop.Bishop(WHITE)
+    gameList[7][5] = Bishop.Bishop(WHITE)
 
 def initializeKnights(gameList):
-    gameList[0][1] = Knight(BLACK)
-    gameList[0][6] = Knight(BLACK)
-    gameList[7][1] = Knight(WHITE)
-    gameList[7][6] = Knight(WHITE)
+    gameList[0][1] = Knight.Knight(BLACK)
+    gameList[0][6] = Knight.Knight(BLACK)
+    gameList[7][1] = Knight.Knight(WHITE)
+    gameList[7][6] = Knight.Knight(WHITE)
 
 def initializeQueens(gameList):
-    gameList[0][4] = Queen(BLACK)
-    gameList[7][4] = Queen(WHITE)
+    gameList[0][4] = Queen.Queen(BLACK)
+    gameList[7][4] = Queen.Queen(WHITE)
 
-def initializeKings():
-    gameList[0][3] = King(BLACK)
-    gameList[7][3] = King(WHITE)
+def initializeKings(gameList):
+    gameList[0][3] = King.King(BLACK)
+    gameList[7][3] = King.King(WHITE)
 
 
 def printBoard(piecesList):
@@ -139,12 +196,13 @@ def printBoard(piecesList):
     the third element is the column, an integer from 1 to 8
     Returns nothing
     """
+    print(SPACE + SPACE + SPACE.join(ALPHABET_ROW) + SPACE)
     for i in range(ROWS):
         currentRow = EMPTY_ROW[:]
         for element in piecesList:
             if element[1] == i:
                 currentRow[element[2]] = element[0]
-        printRow = "." + ".".join(currentRow) + "."
+        printRow = str(i + 1) + SPACE + SPACE.join(currentRow) + SPACE
         print(printRow)
 
    
@@ -158,9 +216,12 @@ def createPawnsList():
             pawnsList.append(subTuple)
     return pawnsList
 
-print(parser())
+#print(SPACE)
+#print(parser())
 
-piecesList = [('P', 1, 0), ('P', 1, 1), ('P', 1, 2), ('P', 1, 3), ('P', 1, 4), ('P', 1, 5), ('P', 1, 6), ('P', 1, 7),
-    ('P', 6, 0), ('P', 6, 1), ('P', 6, 2), ('P', 6, 3), ('P', 6, 4), ('P', 6, 5), ('P', 6, 6), ('P', 6, 7)]
+
+
+#piecesList = [('P', 1, 0), ('P', 1, 1), ('P', 1, 2), ('P', 1, 3), ('P', 1, 4), ('P', 1, 5), ('P', 1, 6), ('P', 1, 7),
+#    ('P', 6, 0), ('P', 6, 1), ('P', 6, 2), ('P', 6, 3), ('P', 6, 4), ('P', 6, 5), ('P', 6, 6), ('P', 6, 7)]
 piecesList = createPawnsList()
 printBoard(piecesList)

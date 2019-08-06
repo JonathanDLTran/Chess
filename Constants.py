@@ -5,3 +5,4 @@ SPACE = " "
 NONE_LIST = COLUMNS * [None]
 BLACK = 'black'
 WHITE = 'white'
+ALPHABET_ROW = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']

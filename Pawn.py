@@ -1,5 +1,5 @@
 import Piece
-import Constants
+from Constants import *
 
 class Pawn(Piece.Piece):
     
