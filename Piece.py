@@ -2,6 +2,9 @@ from Constants import *
 
 class Piece:
     
+    def getColor(self):
+        return self._color
+    
     def __init__(self, color):
         self._color = color
 

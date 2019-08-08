@@ -65,9 +65,11 @@ class Pawn(Piece.Piece):
                 
         
     def __repr__(self):
-        return 'P'
+        return "This is a " + self._color + " Pawn"
     
     def __str__(self):
+        if self._color == BLACK:
+            return 'p'
         return 'P'
     
         

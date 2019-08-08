@@ -11,7 +11,10 @@ class King(Piece.Piece):
         self._hasMoved = False
         
     def __str__(self):
+        if self._color == BLACK:
+            return 'k'
         return 'K'
     
     def __repr__(self):
-        return "K"
+
+        return "This is a " +  self._color + " King"

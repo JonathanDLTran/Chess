@@ -70,7 +70,9 @@ class Rook(Piece.Piece):
         return False
     
     def __str__(self):
+        if self._color == BLACK:
+            return 'r'
         return 'R'
     
     def __repr__(self):
-        return 'R'
+        return "This is a " +  self._color + ' Rook'

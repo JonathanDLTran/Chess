@@ -1,5 +1,5 @@
 import Piece
-import Constants
+from Constants import *
 
 class Knight(Piece.Piece):
     
@@ -15,7 +15,9 @@ class Knight(Piece.Piece):
         
         
     def __repr__(self):
-        return 'K'
+        return "This is a " + self._color + ' Knight'
     
     def __str__(self):
+        if self._color == BLACK:
+            return 'k'
         return 'K'

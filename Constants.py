@@ -2,6 +2,7 @@ ROWS = 8
 COLUMNS = 8
 EMPTY_ROW = (COLUMNS) * ["_"]
 SPACE = " "
+UNDERSCORE = '_'
 NONE_LIST = COLUMNS * [None]
 BLACK = 'black'
 WHITE = 'white'

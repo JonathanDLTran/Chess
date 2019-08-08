@@ -10,7 +10,9 @@ class Bishop(Piece.Piece):
         pass
     
     def __str__(self):
+        if self._color == BLACK:
+            return 'b'
         return 'B'
     
     def __repr__(self):
-        return "B"
+        return "This is a " + self._color + " Bishop"

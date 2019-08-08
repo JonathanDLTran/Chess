@@ -12,44 +12,7 @@ import operator
 import copy
 
 class Chess:
-    
-    def whereCanRookMove(self, pos, piecesList):
-        """
-        pos is a tuple with first element as row, second element as column
-        """
-        xPos = pos[1]
-        yPos = pos[0]
-        xList1 = []; xList2 = []; yList1 = []; yList2 = []
-        res1 = self.moveRookHelper('<', xPos, xPos + 1, yPos, None, piecesList, xList1)
-        res2 = self.moveRookHelper('>', xPos, xPos - 1, yPos, None, piecesList, xList2)
-        res3 = self.moveRookHelper('<', xPos, None, yPos, yPos + 1, piecesList, yList1)
-        res4 = self.moveRookHelper('>', xPos, None, yPos, yPos - 1, piecesList, yList2)
-        return res1 + res2 + res3 + res4
-                
-        
-    def moveRookHelper(self, comparisonOp, xPos, xCounter, yPos, yCounter, piecesList, posCanMoveList):
-        compOps = { '>' : operator.gt,
-                    '<' : operator.lt}
-        toContinue = True
-        if comparisonOp == '<':
-            bound = ROWS - 1
-        else:
-            bound = 0
-        while( compOps[comparisonOp](counter, bound) and toContinue):
-            if xCounter == None:
-                newX = xPos; newY = yCounter
-            else:
-                newX = xCounter; newY = yPos
-            if piecesList[newX][newY] == None:
-                posCanMoveList.append( (newX, newY) )
-            else:
-                toContinue = False
-            if comparisonOp == '<':
-                counter += 1
-            else:
-                counter -= 1
-        return posCanMoveList
-    
+
     def parser(self):
         toContinue = True
         while(toContinue):
@@ -128,29 +91,20 @@ def legalCoordinate(coordinate):
     #   return False
     return (row - 1, column - 1)
 
+def swapPiece(pos1, pos2):
+    pass
 
 def initializeData():
     gameList = []
     for i in range(ROWS):
         gameList.append(copy.deepcopy(NONE_LIST))
-    print(gameList[0])
-
     initializeBishops(gameList)
-    print(gameList[0])
-    print(gameList)
     initializeKings(gameList)
-    print(gameList)
     initializeQueens(gameList)
-    print(gameList)
     initializeKnights(gameList)
-    print(gameList)
     initializeRooks(gameList)
-    print(gameList)
     initializePawns(gameList)
-    #self.piecesData = gameList
-    print(gameList)
-    print(gameList[0][1])
-    print(gameList[7][1])
+    return gameList
     
 def initializePawns(gameList):
     for i in [1, 6]:
@@ -188,21 +142,33 @@ def initializeKings(gameList):
     gameList[7][3] = King.King(WHITE)
 
 
-def printBoard(piecesList):
-    """
-    piecesList is a list, that can be empty, consisting of triples
-    the first element is the piece, a character, e.g "R"
-    the second element is the row, an integer from 1 to 8
-    the third element is the column, an integer from 1 to 8
-    Returns nothing
-    """
+# def printBoard(piecesList):
+#     """
+#     piecesList is a list, that can be empty, consisting of triples
+#     the first element is the piece, a character, e.g "R"
+#     the second element is the row, an integer from 1 to 8
+#     the third element is the column, an integer from 1 to 8
+#     Returns nothing
+#     """
+#     print(SPACE + SPACE + SPACE.join(ALPHABET_ROW) + SPACE)
+#     for i in range(ROWS):
+#         currentRow = EMPTY_ROW[:]
+#         for element in piecesList:
+#             if element[1] == i:
+#                 currentRow[element[2]] = element[0]
+#         printRow = str(i + 1) + SPACE + SPACE.join(currentRow) + SPACE
+#         print(printRow)
+        
+def printBoard(gameList):
     print(SPACE + SPACE + SPACE.join(ALPHABET_ROW) + SPACE)
     for i in range(ROWS):
-        currentRow = EMPTY_ROW[:]
-        for element in piecesList:
-            if element[1] == i:
-                currentRow[element[2]] = element[0]
-        printRow = str(i + 1) + SPACE + SPACE.join(currentRow) + SPACE
+        currentRow = gameList[i]
+        stringRow = ''
+        for element in currentRow:
+            if element == None:
+                element = UNDERSCORE
+            stringRow += SPACE + str(element)
+        printRow = str(i + 1) + stringRow + SPACE
         print(printRow)
 
    
@@ -216,12 +182,219 @@ def createPawnsList():
             pawnsList.append(subTuple)
     return pawnsList
 
-#print(SPACE)
-#print(parser())
 
 
 
-#piecesList = [('P', 1, 0), ('P', 1, 1), ('P', 1, 2), ('P', 1, 3), ('P', 1, 4), ('P', 1, 5), ('P', 1, 6), ('P', 1, 7),
-#    ('P', 6, 0), ('P', 6, 1), ('P', 6, 2), ('P', 6, 3), ('P', 6, 4), ('P', 6, 5), ('P', 6, 6), ('P', 6, 7)]
-piecesList = createPawnsList()
-printBoard(piecesList)
+def correctColorMoveHelper(pieceList, withinBoardList, pieceColor):
+    finalList = []
+    for position in withinBoardList:
+        x = position[0]
+        y = position[1]
+        if pieceList[y][x] == None:
+            finalList.append( (position) )
+        elif pieceList[y][x].getColor() != pieceColor:
+            finalList.append( (position) )
+    return finalList
+
+
+def whereCanPawnMove(pos, pieceList, color, leftBaseline, enpassantPos):
+    xPos = pos[0]
+    yPos = pos[1]
+    forwardList = []
+    if color == BLACK:
+        newY = yPos + 1
+        if newY < ROWS and pieceList[newY][xPos] == None:
+            forwardList.append( (xPos, newY) )
+            furtherY = newY + 1
+            if not leftBaseline and furtherY >= 0 and pieceList[furtherY][xPos] == None:
+                forwardList.append( (xPos, furtherY) )
+    else:
+        newY = yPos - 1
+        if newY >= 0 and pieceList[newY][xPos] == None:
+            forwardList.append( (xPos, newY) )
+            furtherY = newY - 1
+            if not leftBaseline and furtherY < ROWS and pieceList[furtherY][xPos] == None:
+                forwardList.append( (xPos, furtherY) )
+    finalList = forwardList + pawnCaptureHelper(pos, pieceList, color) + enpassantHelper(pos, color, enpassantPos)
+    return finalList + pawnPromotionHelper(finalList, color)
+    
+def enpassantHelper(pos, color, enpassantPos):
+    if enpassantPos == None:
+        return []
+    enpassantList = []
+    xPos = pos[0]
+    eXPos = enpassantPos[0]
+    yPos = pos[1]
+    eYPos = enpassantPos[1]
+    if color == BLACK:
+        if abs(xPos - eXPos) == 1 and yPos - eYPos == 0:
+            enpassantList.append( (eXPos, eYPos + 1) )
+    else:
+        if abs(xPos - eXPos) == 1 and yPos - eYPos == 0:
+            enpassantList.append( (eXPos, eYPos - 1) )
+    return enpassantList
+
+def pawnCaptureHelper(pos, pieceList, color):
+    xPos = pos[0]
+    yPos = pos[1]
+    captureList = []
+    newX1 = xPos - 1; newX2 = xPos + 1
+    if color == BLACK:
+        newY = yPos + 1
+        if newY < ROWS and newX1 >= 0 and pieceList[newY][newX1] != None:
+            captureList.append( (newX1, newY) )
+        if newY < ROWS and newX2 < ROWS and pieceList[newY][newX2] != None:
+            captureList.append( (newX2, newY) )
+    else:
+        newY = yPos - 1
+        if newY >= 0 and newX1 >= 0 and pieceList[newY][newX1] != None:
+            captureList.append( (newX1, newY) )
+        if newY >= 0 and newX2 < ROWS and pieceList[newY][newX2] != None:
+            captureList.append( (newX2, newY) )
+    return captureList
+
+def pawnPromotionHelper(finalList, color):
+    promotionList = []
+    for pos in finalList:
+        if color == BLACK:
+            if pos[1] == 7:
+                promotionList.append("D")
+                return promotionList
+        else:
+            if pos[1] == 0:
+                promotionList.append("D")
+                return promotionList
+    return promotionList
+
+                
+
+def whereCanBishopMove(pos, pieceList, color):
+    xPos = pos[0]
+    yPos = pos[1]
+    NEList = []; NWList = []; SEList = []; SWList = []
+    toContinue = True
+    res1 = bishopMoveHelper('<', xPos, xPos + 1, '<', yPos, yPos + 1, pieceList, NEList)
+    res2 = bishopMoveHelper('<', xPos, xPos + 1, '>', yPos, yPos - 1, pieceList, NWList)
+    res3 = bishopMoveHelper('>', xPos, xPos - 1, '<', yPos, yPos + 1, pieceList, SEList)
+    res4 = bishopMoveHelper('>', xPos, xPos - 1, '>', yPos, yPos - 1, pieceList, SWList)
+    uneditedList = res1 + res2 + res3 + res4
+    finalList = correctColorMoveHelper(pieceList, uneditedList, color)
+    return finalList
+    
+
+def bishopMoveHelper(xOps, xPos, xCounter, yOps, yPos, yCounter, pieceList, posCanMoveList):
+    compOps = { '>' : operator.gt,
+                '<' : operator.lt}
+    toContinue = True
+    if xOps =='<':
+        xBound = ROWS
+    else:
+        xBound = -1
+    if yOps == "<":
+        yBound = ROWS
+    else:
+        yBound = -1
+    while(compOps[xOps](xCounter, xBound) and compOps[yOps](yCounter, yBound) and toContinue):
+        
+        if pieceList[yCounter][xCounter] == None:
+            posCanMoveList.append( (xCounter, yCounter) )
+        else:
+            posCanMoveList.append( (xCounter, yCounter) )
+            toContinue = False
+        
+        if xOps == '<':
+            xCounter += 1
+        else:
+            xCounter -= 1
+        if yOps == '<':
+            yCounter += 1
+        else:
+            yCounter -= 1
+    return posCanMoveList
+
+def whereCanQueenMove(pos, pieceList, color):
+    uneditedList = whereCanBishopMove(pos, pieceList, color) + whereCanRookMove(pos, pieceList, color)
+    finalList = correctColorMoveHelper(pieceList, uneditedList, color)
+    return finalList
+  
+
+def whereCanKingMove(pos, pieceList, color):
+    xPos = pos[0]
+    yPos = pos[1]
+    uneditedList = [(xPos + 1, yPos - 1), (xPos + 0, yPos - 1),
+                    (xPos - 1, yPos - 1), (xPos - 1, yPos + 0),
+                    (xPos + 1, yPos + 0), (xPos + 1, yPos + 1),
+                    (xPos + 0, yPos + 1), (xPos - 1, yPos + 1)]
+    withinBoardList = []
+    for position in uneditedList:
+        if (position[0] >= 0) and (position[0] <= 7) and (position[1] >= 0) and (position[1] <= 7 ):
+            withinBoardList.append(position)
+    return correctColorMoveHelper(pieceList, withinBoardList, color)
+    
+
+def whereCanKnightMove(pos, pieceList, color):
+    """
+    pos is a two tuple: the first element is the column, the second element is the row,
+    both elements are integers between 0 and 7.
+    returns a list of two tuples in which the knight can move to legitamately
+    for which every element in the tuple is an integer between 0 and 7, COLUMN FIRST, ROW SECOND
+    """
+    xPos = pos[0]
+    yPos = pos[1]
+    uneditedList = [(xPos + 1, yPos + 2), (xPos + 1, yPos - 2),
+                    (xPos - 1, yPos + 2), (xPos - 1, yPos - 2),
+                    (xPos + 2, yPos + 1), (xPos + 2, yPos - 1),
+                    (xPos - 2, yPos + 1), (xPos - 2, yPos - 1)]
+    withinBoardList = []
+    for position in uneditedList:
+        if (position[0] >= 0) and (position[0] <= 7) and (position[1] >= 0) and (position[1] <= 7 ):
+            withinBoardList.append(position)
+    finalList = []
+    return correctColorMoveHelper(pieceList, withinBoardList, color)
+
+
+def whereCanRookMove(pos, piecesList, color):
+    """
+    pos is a tuple with first element as column, second element as row
+    """
+    xPos = pos[0]
+    yPos = pos[1]
+    xList1 = []; xList2 = []; yList1 = []; yList2 = []
+    res1 = moveRookHelper('<', xPos, xPos + 1, yPos, None, piecesList, xList1)
+    res2 = moveRookHelper('>', xPos, xPos - 1, yPos, None, piecesList, xList2)
+    res3 = moveRookHelper('<', xPos, None, yPos, yPos + 1, piecesList, yList1)
+    res4 = moveRookHelper('>', xPos, None, yPos, yPos - 1, piecesList, yList2)
+    return correctColorMoveHelper(piecesList, res1 + res2 + res3 + res4, color)
+
+    
+def moveRookHelper(comparisonOp, xPos, xCounter, yPos, yCounter, piecesList, posCanMoveList):
+    compOps = { '>' : operator.gt,
+                '<' : operator.lt}
+    toContinue = True
+    if comparisonOp == '<':
+        bound = ROWS 
+    else:
+        bound = -1
+    if xCounter == None:
+        counter = yCounter
+    else:
+        counter = xCounter
+    while( compOps[comparisonOp](counter, bound) and toContinue):
+        if xCounter == None:
+            newX = xPos; newY = counter
+        else:
+            newX = counter; newY = yPos
+        if piecesList[newY][newX] == None: # because piecesList is ordered by row, first not by column first
+            posCanMoveList.append( (newX, newY) )
+        else:
+            posCanMoveList.append( (newX, newY) )
+            toContinue = False
+        if comparisonOp == '<':
+            counter += 1
+        else:
+            counter -= 1
+    return posCanMoveList
+    
+
+
+

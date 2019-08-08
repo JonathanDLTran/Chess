@@ -8,8 +8,10 @@ class Queen(Piece.Piece):
         
         
     def __str__(self):
+        if self._color == BLACK:
+            return 'q'
         return 'Q'
     
     def __repr__(self):
-        return 'Q'
+        return "This is a " +  self._color + ' Queen'
         
