@@ -19,5 +19,5 @@ class Knight(Piece.Piece):
     
     def __str__(self):
         if self._color == BLACK:
-            return 'k'
-        return 'K'
+            return 'n'
+        return 'N'

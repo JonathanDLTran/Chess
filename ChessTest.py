@@ -1,6 +1,11 @@
 from Chess import *
 from Constants import *
 
+def testParser():
+    print("testing Parser")
+    parser()
+    print("Pass parser")
+
 def testKnightMove():
     print("Testing knight moves")
     # Standard case
@@ -351,9 +356,110 @@ def testPawnMove():
     
     print("pass pawn")
     
+def testCustomBoard():
+    print("testing custom Board")
+    customList = [('p', BLACK, 0, 0)]
+    printCustomBoard(customList)
+    
+    customList = [('p', BLACK, 7, 7)]
+    printCustomBoard(customList)
+    
+    customList = [('p', BLACK, 3, 5)]
+    printCustomBoard(customList)
+    
+    customList = [('p', WHITE, 0, 0)]
+    printCustomBoard(customList)
+    
+    customList = [('p', WHITE, 7, 7)]
+    printCustomBoard(customList)
+    
+    customList = [('p', WHITE, 3, 5)]
+    printCustomBoard(customList)
+    
+    customList = [('p', WHITE, 3, 5), ('k', WHITE, 2, 1), ('r', BLACK, 0, 0), ('n', BLACK, 3, 4), ('b', WHITE, 7, 1), ('q', BLACK, 4, 4)]
+    newBoard = printCustomBoard(customList)
+    
+    deletePos = (3, 5)
+    deletePiece(deletePos, newBoard)
+    printBoard(newBoard)
+    deletePos = (2, 1)
+    deletePiece(deletePos, newBoard)
+    printBoard(newBoard)
+    deletePos = (0, 0)
+    deletePiece(deletePos, newBoard)
+    printBoard(newBoard)
+    deletePos = (3, 4)
+    deletePiece(deletePos, newBoard)
+    printBoard(newBoard)
+    deletePos = (7, 1)
+    deletePiece(deletePos, newBoard)
+    printBoard(newBoard)
+    deletePos = (4, 4)
+    deletePiece(deletePos, newBoard)
+    printBoard(newBoard)
+    
+    customList = [('p', WHITE, 3, 5), ('p', BLACK, 3, 6), ('p', BLACK, 0, 6), ('p', BLACK, 7, 2), ('k', WHITE, 2, 1), ('r', BLACK, 0, 0), ('n', BLACK, 3, 4), ('b', WHITE, 7, 1), ('q', BLACK, 4, 4)]
+    newBoard = printCustomBoard(customList)
+    swapPieces((3, 5), (0, 6), newBoard)
+    printBoard(newBoard)
+    
+    customList = [('p', WHITE, 3, 5), ('p', WHITE, 0, 6), ('p', BLACK, 7, 2), ('k', WHITE, 2, 1), ('r', BLACK, 0, 0), ('n', BLACK, 3, 4), ('b', WHITE, 7, 1), ('q', BLACK, 4, 4)]
+    newBoard = printCustomBoard(customList)
+    swapPieces((3, 5), (0, 6), newBoard)
+    printBoard(newBoard)
+    
+    customList = [('p', WHITE, 3, 5), ('p', BLACK, 0, 6), ('p', BLACK, 7, 2), ('k', WHITE, 2, 1), ('r', BLACK, 0, 0), ('n', BLACK, 3, 4), ('b', WHITE, 7, 1), ('q', BLACK, 4, 4)]
+    newBoard = printCustomBoard(customList)
+    swapPieces((2, 1), (4, 4), newBoard)
+    printBoard(newBoard)
+    
+    customList = [('p', WHITE, 3, 5), ('p', BLACK, 0, 6), ('p', BLACK, 7, 2), ('k', WHITE, 2, 1), ('r', WHITE, 1, 1), ('r', BLACK, 0, 0), ('n', BLACK, 3, 4), ('b', WHITE, 7, 1), ('q', BLACK, 4, 4)]
+    newBoard = printCustomBoard(customList)
+    swapPieces((0, 0), (1, 1), newBoard)
+    printBoard(newBoard)
+    
+    customList = [('p', WHITE, 3, 5), ('p', BLACK, 0, 6), ('p', BLACK, 7, 2), ('k', WHITE, 2, 1), ('r', WHITE, 1, 1), ('r', BLACK, 0, 0), ('n', BLACK, 3, 4), ('b', WHITE, 7, 1), ('q', BLACK, 4, 4)]
+    newBoard = printCustomBoard(customList)
+    movePieces((4, 4), (5, 5), newBoard)
+    printBoard(newBoard)
+
+    movePieces((5, 5), (3, 5), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((3, 5), (0, 6), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((0, 6), (7, 2), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((7, 2), (2, 1), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((2, 1), (1, 1), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((1, 1), (0, 0), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((0, 0), (3, 4), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((3, 4), (7, 1), newBoard)
+    printBoard(newBoard)
+    
+    movePieces((7, 1), (4, 4), newBoard)
+    printBoard(newBoard)
+    
+    deletePiece((4, 4), newBoard)
+    printBoard(newBoard)
+    
+    print("pass custom board")
+
+testParser()
 testKnightMove()
 testRookMove()
 testBishopMove()
 testKingMove()
 testQueenMove()
 testPawnMove()
+testCustomBoard()
