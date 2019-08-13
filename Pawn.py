@@ -3,6 +3,9 @@ from Constants import *
 
 class Pawn(Piece.Piece):
     
+    def hasLeftBaseline(self):
+        return self._hasLeftBaseline
+    
     def leaveBaseline(self):
         self._hasLeftBaseline = True
         

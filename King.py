@@ -5,6 +5,9 @@ class King(Piece.Piece):
     
     def moved(self):
         self._hasMoved = True
+        
+    def hasKingMoved(self):
+        return self._hasMoved
     
     def __init__(self, color):
         super().__init__(color)

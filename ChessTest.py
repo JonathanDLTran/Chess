@@ -3,7 +3,9 @@ from Constants import *
 
 def testParser():
     print("testing Parser")
-    parser()
+    currentPlayer = "Edward"
+    opposingPlayer = "SheldonMike"
+    parser(currentPlayer, opposingPlayer)
     print("Pass parser")
 
 def testKnightMove():
@@ -138,28 +140,28 @@ def testPawnMove():
     gameList = initializeData()
     pos = (4, 6)
     leftBaseline = False
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(4, 5), (4, 4)])
     
     color = WHITE
     gameList = initializeData()
     pos = (4, 6)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(4, 5)])
     
     color = BLACK
     gameList = initializeData()
     pos = (4, 6)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(3, 7), (5, 7), "D"])
     
     color = BLACK
     gameList = initializeData()
     pos = (0, 6)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(1, 7), "D"])
     
     
@@ -167,42 +169,42 @@ def testPawnMove():
     gameList = initializeData()
     pos = (7, 6)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(6, 7), "D"])
     
     color = BLACK
     gameList = initializeData()
     pos = (7, 7)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([])
     
     color = BLACK
     gameList = initializeData()
     pos = (4, 4)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(4, 5)])
     
     color = WHITE
     gameList = initializeData()
     pos = (2, 4)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(2, 3)])
     
     color = WHITE
     gameList = initializeData()
     pos = (0, 2)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(1, 1)])
     
     color = WHITE
     gameList = initializeData()
     pos = (5, 2)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(4, 1), (6, 1)])
     
     
@@ -210,14 +212,14 @@ def testPawnMove():
     gameList = initializeData()
     pos = (7, 2)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(6, 1)])
     
     color = WHITE
     gameList = initializeData()
     pos = (0, 2)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(1, 1)])
     
     
@@ -225,28 +227,28 @@ def testPawnMove():
     gameList = initializeData()
     pos = (0, 0)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([])
     
     color = WHITE
     gameList = initializeData()
     pos = (3, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(2, 0), (4, 0), "D"])
     
     color = WHITE
     gameList = initializeData()
     pos = (0, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(1, 0), "D"])
     
     color = WHITE
     gameList = initializeData()
     pos = (4, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(3, 0), (5, 0), "D"])
     
     
@@ -254,28 +256,28 @@ def testPawnMove():
     gameList = initializeData()
     pos = (7, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(6, 0), "D"])
     
     color = BLACK
     gameList = initializeData()
     pos = (3, 1)
     leftBaseline = False
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(3, 2), (3, 3)])
     
     color = BLACK
     gameList = initializeData()
     pos = (3, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(3, 2)])
     
     color = BLACK
     gameList = initializeData()
     pos = (3, 2)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(3, 3)])
     
     
@@ -283,7 +285,7 @@ def testPawnMove():
     gameList = initializeData()
     pos = (7, 1)
     leftBaseline = False
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(7, 2), (7, 3)])
     
     
@@ -291,14 +293,14 @@ def testPawnMove():
     gameList = initializeData()
     pos = (7, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(7, 2)])
     
     color = BLACK
     gameList = initializeData()
     pos = (0, 1)
     leftBaseline = False
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(0, 2), (0, 3)])
     
     
@@ -306,7 +308,7 @@ def testPawnMove():
     gameList = initializeData()
     pos = (0, 1)
     leftBaseline = True
-    enpassantPos = None
+    enpassantPos = []
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(0, 2)])
     
     
@@ -315,42 +317,42 @@ def testPawnMove():
     gameList = initializeData()
     pos = (1, 4)
     leftBaseline = True
-    enpassantPos = (0, 4)
+    enpassantPos = [(0, 4)]
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(0, 5), (1, 5)])
     
     color = BLACK
     gameList = initializeData()
     pos = (1, 4)
     leftBaseline = True
-    enpassantPos = (2, 4)
+    enpassantPos = [(2, 4)]
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(2, 5), (1, 5)])
     
     color = BLACK
     gameList = initializeData()
     pos = (2, 4)
     leftBaseline = True
-    enpassantPos = (0, 4)
+    enpassantPos = [(0, 4)]
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(2, 5)])
     
     color = BLACK
     gameList = initializeData()
     pos = (2, 4)
     leftBaseline = True
-    enpassantPos = (4, 4)
+    enpassantPos = [(4, 4)]
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(2, 5)])
     
     color = BLACK
     gameList = initializeData()
     pos = (1, 3)
     leftBaseline = True
-    enpassantPos = (0, 4)
+    enpassantPos = [(0, 4)]
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(1, 4)])
     
     color = WHITE
     gameList = initializeData()
     pos = (1, 3)
     leftBaseline = True
-    enpassantPos = (0, 3)
+    enpassantPos = [(0, 3)]
     assert set(whereCanPawnMove(pos, gameList, color, leftBaseline, enpassantPos)) == set([(1, 2), (0, 2)])
     
     
@@ -454,8 +456,310 @@ def testCustomBoard():
     printBoard(newBoard)
     
     print("pass custom board")
+    
+def testCastleMove():
+    print("test castle")
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 7), ('r', BLACK, 0, 7), ('r', BLACK, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 0), ('r', WHITE, 0, 0), ('r', WHITE, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0), ('p', BLACK, 5, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0), ('b', BLACK, 2, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0), ('p', WHITE, 1, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0), ('p', WHITE, 6, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0), ('q', BLACK, 2, 0), ('p', BLACK, 3, 0), ('b', BLACK, 5, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0), ('p', WHITE, 2, 0), ('p', WHITE, 5, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 5, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 1, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 6, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = []
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(2, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(3, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(4, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(5, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(6, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(7, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 0), (7, 0)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+        
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(2, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(3, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(4, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(5, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(6, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(7, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 7), (7, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE, RIGHT_CASTLE]
+    
+    color = WHITE
+    gameList = initializeData()
+    customList = [('k', WHITE, 4, 7), ('r', WHITE, 0, 7), ('r', WHITE, 7, 7)]
+    newBoard = printCustomBoard(customList)
+    king = newBoard[7][4]
+    king.moved()
+    enemyAttackList = [(0, 7), (7, 7)]
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 7), (7, 7)]
+    king = newBoard[0][4]
+    king.moved()
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 7), (7, 7)]
+    rook = newBoard[0][0]
+    rook.moved()
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [RIGHT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 7), (7, 7)]
+    rook = newBoard[0][7]
+    rook.moved()
+    assert canCastleOccur(newBoard, enemyAttackList, color) == [LEFT_CASTLE]
+    
+    color = BLACK
+    gameList = initializeData()
+    customList = [('k', BLACK, 4, 0), ('r', BLACK, 0, 0), ('r', BLACK, 7, 0)]
+    newBoard = printCustomBoard(customList)
+    enemyAttackList = [(0, 7), (7, 7)]
+    rook1 = newBoard[0][0]
+    rook1.moved()
+    rook2 = newBoard[0][7]
+    rook2.moved()
+    assert canCastleOccur(newBoard, enemyAttackList, color) == []
+    
+    
+    print("Pass castle")
+    
+def testPawnPromotion():
+    print("test pawn promotion")
+    position = (5, 0)
+    color = WHITE
+    customList = [('p', WHITE, 5, 0)]
+    newBoard = printCustomBoard(customList)
+    pawnPromotion(position, color, newBoard)
+    printBoard(newBoard)
+    
+    position = (3, 7)
+    color = BLACK
+    customList = [('p', WHITE, 3, 7)]
+    newBoard = printCustomBoard(customList)
+    pawnPromotion(position, color, newBoard)
+    printBoard(newBoard)
+    print("pass pawn promotion")
 
-testParser()
+#testParser()
 testKnightMove()
 testRookMove()
 testBishopMove()
@@ -463,3 +767,5 @@ testKingMove()
 testQueenMove()
 testPawnMove()
 testCustomBoard()
+testCastleMove()
+#testPawnPromotion()

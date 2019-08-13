@@ -5,6 +5,9 @@ class Rook(Piece.Piece):
     
     def moved(self):
         self._hasMoved = True
+        
+    def hasRookMoved(self):
+        return self._hasMoved
     
     
     def __init__(self, color):
