@@ -1,4 +1,4 @@
 # Chess
-Text based chess game in progress
+Text based chess game
 
 
